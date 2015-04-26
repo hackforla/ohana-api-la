@@ -9,7 +9,7 @@ class Service < ActiveRecord::Base
   belongs_to :location, touch: true
   belongs_to :program
 
-  has_and_belongs_to_many :categories, -> { order('taxonomy_id asc').uniq },
+  has_and_belongs_to_many :categories,
                           after_add: :touch_location,
                           after_remove: :touch_location
 
@@ -70,6 +70,6 @@ class Service < ActiveRecord::Base
   end
 
   def touch_location(_category)
-    location.update_column(:updated_at, Time.now) if persisted?
+    location.update_column(:updated_at, Time.zone.now) if persisted?
   end
 end
