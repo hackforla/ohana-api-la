@@ -33,6 +33,14 @@ Metrics/MethodLength:
   CountComments: false
   Max: 15
 
+Metrics/ModuleLength:
+  Description: Avoid modules longer than 100 lines of code.
+  Enabled: true
+  CountComments: false
+  Max: 100
+  Exclude:
+  - spec/support/features/form_helpers.rb
+
 Rails/HasAndBelongsToMany:
   Description: Prefer has_many :through to has_and_belongs_to_many.
   Enabled: true
@@ -51,7 +59,7 @@ Rails/ScopeArgs:
 Rails/TimeZone:
   # The value `always` means that `Time` should be used with `zone`.
   # The value `acceptable` allows usage of `in_time_zone` instead of `zone`.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: always
   SupportedStyles:
     - always
@@ -78,6 +86,10 @@ Style/DotPosition:
   SupportedStyles:
   - leading
   - trailing
+
+Style/ExtraSpacing:
+  Description: Do not use unnecessary spacing.
+  Enabled: false
 
 Style/GuardClause:
   Description: Check for conditionals that can be replaced with guard clauses
