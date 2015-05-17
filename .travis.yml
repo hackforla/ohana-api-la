@@ -11,8 +11,8 @@ before_script:
   - cp config/database.travis.yml config/database.yml
 sudo: false
 script: "bundle exec rake"
-notifications:
-  webhooks: http://cfa-project-monitor.herokuapp.com/projects/f4e235b6-734e-4d63-a19b-32426335c047/status
+#notifications:
+#  webhooks: http://cfa-project-monitor.herokuapp.com/projects/f4e235b6-734e-4d63-a19b-32426335c047/status
 env:
   global:
     - S3_BUCKET_NAME=gems-for-travis
