@@ -1,5 +1,10 @@
 class Admin
   module FormHelper
+    def admin_form_for(record, options={}, &block)
+      options[:builder] ||= Admin::FormBuilder
+      form_for(record, options, &block)
+    end
+
     def link_to_add_fields(name, f, association)
       new_object = f.object.class.reflect_on_association(association).klass.new
       id = new_object.object_id
