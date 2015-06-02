@@ -1,8 +1,5 @@
 class Admin
-  class ServiceContactsController < ApplicationController
-    before_action :authenticate_admin!
-    layout 'admin'
-
+  class ServiceContactsController < AdminController
     def edit
       @service = Service.find(params[:service_id])
       @contact = Contact.find(params[:id])

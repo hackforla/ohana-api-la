@@ -1,8 +1,5 @@
 class Admin
-  class ProgramsController < ApplicationController
-    before_action :authenticate_admin!
-    layout 'admin'
-
+  class ProgramsController < AdminController
     def index
       @programs = Kaminari.paginate_array(policy_scope(Program)).
                   page(params[:page]).per(params[:per_page])
