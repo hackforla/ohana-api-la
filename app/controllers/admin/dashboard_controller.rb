@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class DashboardController < AdminController
     def index
       redirect_to new_session_path(:admin) unless admin_signed_in?

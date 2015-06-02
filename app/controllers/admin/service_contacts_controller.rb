@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class ServiceContactsController < AdminController
     def edit
       @service = Service.find(params[:service_id])

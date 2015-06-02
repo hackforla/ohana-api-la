@@ -28,7 +28,7 @@ user2.confirm!
 
 # Set up test users for the Admin Interface.
 puts 'Setting up first test admin...'
-admin = Admin.new :name => 'admin with custom domain name',
+admin = Admin::User.new :name => 'admin with custom domain name',
                     :email => 'ohana@samaritanhouse.com',
                     :password => 'ohanatest',
                     :password_confirmation => 'ohanatest'
@@ -37,7 +37,7 @@ admin.save
 admin.confirm!
 
 puts 'Setting up second test admin...'
-admin2 = Admin.new :name => 'admin with generic email',
+admin2 = Admin::User.new :name => 'admin with generic email',
                      :email => 'ohana@gmail.com',
                      :password => 'ohanatest',
                      :password_confirmation => 'ohanatest'
@@ -46,7 +46,7 @@ admin2.save
 admin2.confirm!
 
 puts 'Setting up test super admin...'
-admin3 = Admin.new :name => 'Super Admin',
+admin3 = Admin::User.new :name => 'Super Admin',
                      :email => 'masteradmin@ohanapi.org',
                      :password => 'ohanatest',
                      :password_confirmation => 'ohanatest'

@@ -1,5 +1,5 @@
 .authform
-  - if request.host == 'ohana-api-demo.herokuapp.com' && resource.is_a?(Admin)
+  - if request.host == 'ohana-api-demo.herokuapp.com' && resource.is_a?(Admin::User)
     To try out the admin interface, sign in with one of these
     #{link_to 'three demo emails and passwords', 'https://github.com/codeforamerica/ohana-api/blob/master/db/seeds.rb#L24-43'}.
 

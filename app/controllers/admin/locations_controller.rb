@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class LocationsController < AdminController
     def index
       @locations = Kaminari.paginate_array(policy_scope(Location)).

@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class OrganizationsController < AdminController
     include Taggable
 

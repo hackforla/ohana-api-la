@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class OrganizationContactsController < AdminController
     def edit
       @organization = Organization.find(params[:organization_id])

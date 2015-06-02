@@ -1,4 +1,4 @@
-class Admin
+module Admin
   module FormHelper
     def admin_form_for(record, options={}, &block)
       options[:builder] ||= Admin::FormBuilder

@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class ServicesController < AdminController
     include Taggable
 

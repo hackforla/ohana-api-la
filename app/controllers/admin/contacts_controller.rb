@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class ContactsController < AdminController
     def edit
       @location = Location.find(params[:location_id])

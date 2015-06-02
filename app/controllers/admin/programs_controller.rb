@@ -1,4 +1,4 @@
-class Admin
+module Admin
   class ProgramsController < AdminController
     def index
       @programs = Kaminari.paginate_array(policy_scope(Program)).
