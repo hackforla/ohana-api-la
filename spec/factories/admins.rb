@@ -17,6 +17,7 @@ FactoryGirl.define do
       email 'invalid@example.com'
       password 'ohanatest'
       password_confirmation 'ohanatest'
+      confirmed_at nil
     end
 
     factory :admin_with_generic_email do
