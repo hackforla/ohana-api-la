@@ -10,7 +10,6 @@ module Search
       super(r)
     end
 
-    scope :keyword, ->(keyword) { keyword_search(keyword) }
     scope :category, ->(category) { joins(services: :categories).where(categories: { name: category }) }
 
     scope :is_near, LocationFilter.new(self)
@@ -20,19 +19,6 @@ module Search
     end)
 
     scope :with_email, EmailFilter.new(self)
-
-    include PgSearch
-
-    pg_search_scope :keyword_search,
-                    against: :tsv_body,
-                    using: {
-                      tsearch: {
-                        dictionary: 'english',
-                        any_word: false,
-                        prefix: true,
-                        tsvector_column: 'tsv_body'
-                      }
-                    }
   end
 
   module ClassMethods
@@ -40,12 +26,25 @@ module Search
       param == 'active' ? where(active: true) : where(active: false)
     end
 
+    def keyword(query)
+      where("locations.tsv_body @@ plainto_tsquery('english', ?)", query).
+        order("#{rank_for(query)} DESC, locations.updated_at DESC")
+    end
+
+    def rank_for(query)
+      sanitized = ActiveRecord::Base.sanitize(query)
+
+      <<-RANK
+        ts_rank(locations.tsv_body, plainto_tsquery('english', #{sanitized}))
+      RANK
+    end
+
     def language(lang)
       where('locations.languages && ARRAY[?]', lang)
     end
 
     def service_area(sa)
-      joins(:services).where('services.service_areas @@ :q', q: sa)
+      joins(:services).where('services.service_areas @@ :q', q: sa).uniq
     end
 
     def text_search(params = {})
@@ -55,10 +54,13 @@ module Search
     end
 
     def search(params = {})
-      text_search(params).
-        with_email(params[:email]).
-        is_near(params[:location], params[:lat_lng], params[:radius]).
-        uniq
+      res = text_search(params).
+            with_email(params[:email]).
+            is_near(params[:location], params[:lat_lng], params[:radius])
+
+      return res unless params[:keyword] && params[:service_area]
+
+      res.select("locations.*, #{rank_for(params[:keyword])}")
     end
 
     def allowed_params(params)
