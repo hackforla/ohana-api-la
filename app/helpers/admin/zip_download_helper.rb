@@ -1,4 +1,4 @@
-class Admin
+module Admin
   module ZipDownloadHelper
     def zip_file_status
       if File.exist?(tmp_file_name)

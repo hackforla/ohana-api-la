@@ -1,8 +1,5 @@
-class Admin
-  class LocationsController < ApplicationController
-    before_action :authenticate_admin!
-    layout 'admin'
-
+module Admin
+  class LocationsController < AdminController
     def index
       @locations = Kaminari.paginate_array(policy_scope(Location)).
                    page(params[:page]).per(params[:per_page])

@@ -1,5 +1,8 @@
-class Admin
-  class CsvController < ApplicationController
+module Admin
+  class CsvController < AdminController
+    # Allow unauthenticated local requests to accomodate ZipDownloadJob
+    skip_before_action :authenticate_admin!, except: [:all, :download_zip], if: -> { request.local? }
+
     # The CSV content for each action is defined in
     # app/views/admin/csv/{action_name}.csv.shaper
 

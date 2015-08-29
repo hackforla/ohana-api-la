@@ -4,7 +4,7 @@ task remove_test_users_and_admins: :environment do
     user2@example.com
   )
 
-  Admin.destroy_all email: %w(
+  Admin::User.destroy_all email: %w(
     ohana@samaritanhouse.com
     ohana@gmail.com
     masteradmin@ohanapi.org

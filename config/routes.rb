@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # Read more about routing: http://guides.rubyonrails.org/routing.html
 
   devise_for :users, controllers: { registrations: 'user/registrations' }
-  devise_for :admins, path: ENV['ADMIN_PATH'] || '/', controllers: { registrations: 'admin/registrations' }
+  devise_for :admins, path: ENV['ADMIN_PATH'] || '/', controllers: { registrations: 'admin/registrations' }, class_name: 'Admin::User'
 
   constraints(SubdomainConstraints.new(subdomain: ENV['ADMIN_SUBDOMAIN'])) do
     namespace :admin, path: ENV['ADMIN_PATH'] do

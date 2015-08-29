@@ -1,9 +1,6 @@
-class Admin
-  class ServicesController < ApplicationController
+module Admin
+  class ServicesController < AdminController
     include Taggable
-
-    before_action :authenticate_admin!
-    layout 'admin'
 
     def index
       @services = Kaminari.paginate_array(policy_scope(Service)).

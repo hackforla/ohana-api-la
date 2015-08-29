@@ -12,7 +12,7 @@ class CustomMailer < Devise::Mailer
   private
 
   def template_path(resource)
-    return 'admin/mailer' if resource.is_a?(Admin)
+    return 'admin/mailer' if resource.is_a?(Admin::User)
     return 'devise/mailer' if resource.is_a?(User)
   end
 end

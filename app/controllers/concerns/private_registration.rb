@@ -33,7 +33,7 @@ module PrivateRegistration
   end
 
   def path_for(resource)
-    return new_admin_session_path if resource.is_a?(Admin)
+    return new_admin_session_path if resource.is_a?(Admin::User)
     return new_user_session_path if resource.is_a?(User)
   end
 

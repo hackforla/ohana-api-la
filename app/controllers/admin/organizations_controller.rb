@@ -1,8 +1,5 @@
-class Admin
-  class OrganizationsController < ApplicationController
-    before_action :authenticate_admin!
-    layout 'admin'
-
+module Admin
+  class OrganizationsController < AdminController
     include Taggable
 
     def index

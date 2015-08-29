@@ -1,8 +1,5 @@
-class Admin
-  class ContactsController < ApplicationController
-    before_action :authenticate_admin!
-    layout 'admin'
-
+module Admin
+  class ContactsController < AdminController
     def edit
       @location = Location.find(params[:location_id])
       @contact = Contact.find(params[:id])

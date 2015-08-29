@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     return root_url if resource.is_a?(User)
-    return admin_dashboard_path if resource.is_a?(Admin)
+    return admin_dashboard_path if resource.is_a?(Admin::User)
   end
 
   def after_sign_out_path_for(resource)

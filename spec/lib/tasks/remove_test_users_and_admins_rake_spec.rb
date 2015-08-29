@@ -27,13 +27,13 @@ describe 'remove_test_users_and_admins' do
   it 'only removes 3 admins' do
     subject.invoke
 
-    expect(Admin.count).to eq 1
+    expect(Admin::User.count).to eq 1
   end
 
   it 'only removes the demo admins' do
     subject.invoke
 
-    expect(Admin.pluck(:email)).to eq %w(moncef@samaritanhouse.com)
+    expect(Admin::User.pluck(:email)).to eq %w(moncef@samaritanhouse.com)
   end
 
   it 'can be run multiple times' do
@@ -42,6 +42,6 @@ describe 'remove_test_users_and_admins' do
     subject.invoke
 
     expect(User.count).to eq 1
-    expect(Admin.count).to eq 1
+    expect(Admin::User.count).to eq 1
   end
 end
