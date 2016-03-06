@@ -8,18 +8,20 @@ class RegularScheduleImporter < EntityImporter
   end
 
   def import
-    regular_schedules.each(&:save)
-  end
-
-  protected
-
-  def regular_schedules
-    @regular_schedules ||= csv_entries.map(&:to_hash).map do |p|
-      RegularSchedulePresenter.new(p).to_regular_schedule
+    ActiveRecord::Base.no_touching do
+      regular_schedules.each(&:save)
     end
   end
 
   def self.required_headers
     %w(id location_id service_id weekday opens_at closes_at)
+  end
+
+  protected
+
+  def regular_schedules
+    @regular_schedules ||= csv_entries.each_with_object([]) do |chunks, result|
+      chunks.each { |row| result << RegularSchedulePresenter.new(row).to_regular_schedule }
+    end
   end
 end

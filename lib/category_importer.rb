@@ -8,18 +8,20 @@ class CategoryImporter < EntityImporter
   end
 
   def import
-    categories.each(&:save)
-  end
-
-  protected
-
-  def categories
-    @categories ||= csv_entries.map(&:to_hash).map do |p|
-      CategoryPresenter.new(p).to_category
+    ActiveRecord::Base.no_touching do
+      categories.each(&:save)
     end
   end
 
   def self.required_headers
     %w(taxonomy_id name parent_id parent_name)
+  end
+
+  protected
+
+  def categories
+    @categories ||= csv_entries.each_with_object([]) do |chunks, result|
+      chunks.each { |row| result << CategoryPresenter.new(row).to_category }
+    end
   end
 end

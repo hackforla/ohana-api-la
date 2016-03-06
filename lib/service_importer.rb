@@ -8,14 +8,8 @@ class ServiceImporter < EntityImporter
   end
 
   def import
-    services.each(&:save)
-  end
-
-  protected
-
-  def services
-    @services ||= csv_entries.map(&:to_hash).map do |p|
-      ServicePresenter.new(p).to_service
+    ActiveRecord::Base.no_touching do
+      services.each(&:save)
     end
   end
 
@@ -23,5 +17,13 @@ class ServiceImporter < EntityImporter
     %w(id location_id program_id accepted_payments alternate_name description
        eligibility email fees funding_sources application_process languages name
        required_documents service_areas status website wait_time)
+  end
+
+  protected
+
+  def services
+    @services ||= csv_entries.each_with_object([]) do |chunks, result|
+      chunks.each { |row| result << ServicePresenter.new(row).to_service }
+    end
   end
 end
