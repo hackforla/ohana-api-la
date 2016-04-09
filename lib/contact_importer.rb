@@ -8,19 +8,21 @@ class ContactImporter < EntityImporter
   end
 
   def import
-    contacts.each(&:save)
-  end
-
-  protected
-
-  def contacts
-    @contacts ||= csv_entries.map(&:to_hash).map do |p|
-      ContactPresenter.new(p).to_contact
+    ActiveRecord::Base.no_touching do
+      contacts.each(&:save)
     end
   end
 
   def self.required_headers
     %w(id location_id organization_id service_id department email name
        title)
+  end
+
+  protected
+
+  def contacts
+    @contacts ||= csv_entries.each_with_object([]) do |chunks, result|
+      chunks.each { |row| result << ContactPresenter.new(row).to_contact }
+    end
   end
 end

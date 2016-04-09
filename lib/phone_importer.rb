@@ -8,19 +8,21 @@ class PhoneImporter < EntityImporter
   end
 
   def import
-    phones.each(&:save)
-  end
-
-  protected
-
-  def phones
-    @phones ||= csv_entries.map(&:to_hash).map do |p|
-      PhonePresenter.new(p).to_phone
+    ActiveRecord::Base.no_touching do
+      phones.each(&:save)
     end
   end
 
   def self.required_headers
     %w(id location_id organization_id service_id contact_id department
        extension number number_type vanity_number country_prefix)
+  end
+
+  protected
+
+  def phones
+    @phones ||= csv_entries.each_with_object([]) do |chunks, result|
+      chunks.each { |row| result << PhonePresenter.new(row).to_phone }
+    end
   end
 end

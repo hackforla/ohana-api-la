@@ -1,6 +1,7 @@
 %p
   Below you should see a list of locations that you are allowed to administer based on your email address.
-  If there are any locations missing, please #{mail_to "#{SETTINGS[:admin_support_email]}", 'let us know'}.
+  If there are any locations missing,
+  please #{mail_to SETTINGS[:admin_support_email], 'let us know'}.
 %p
   To start updating, click on one of the links, which will take you to the details page
   for the location.
@@ -15,4 +16,4 @@
 
 - if @locations.present?
   %p
-    = link_to 'Add a new location', new_admin_location_path, class: 'btn btn-primary'
+    = link_to t('admin.buttons.add_location'), new_admin_location_path, class: 'btn btn-primary'
