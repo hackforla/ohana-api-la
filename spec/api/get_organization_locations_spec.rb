@@ -9,7 +9,7 @@ describe 'GET /organizations/:organization_id/locations' do
         admin_emails: %w(foo@bar.com),
         description: 'testing 1 2 3',
         email: 'foo@bar.com',
-        languages: %w(french, arabic),
+        languages: %w(french arabic),
         latitude: 37.583939,
         longitude: -122.3715745,
         name: 'new location',
@@ -66,11 +66,6 @@ describe 'GET /organizations/:organization_id/locations' do
 
     it 'includes the location address attribute in the serialization' do
       expect(json.first['address']['address_1']).to eq(@location.address.address_1)
-    end
-
-    xit 'includes the location mail_address attribute in the serialization' do
-      expect(json.first['mail_address']['city']).
-        to eq(@location.mail_address.city)
     end
 
     it 'includes the location updated_at attribute in the serialization' do

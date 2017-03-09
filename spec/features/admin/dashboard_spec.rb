@@ -24,7 +24,8 @@ feature 'Admin Home page' do
 
     it 'does not include a link to Your locations in the navigation' do
       within '.navbar' do
-        expect(page).not_to have_link I18n.t('admin.navigation.locations'), href: admin_locations_path
+        expect(page).
+          not_to have_link I18n.t('admin.navigation.locations'), href: admin_locations_path
       end
     end
 
@@ -114,7 +115,8 @@ feature 'Admin Home page' do
 
     it 'includes a link to organizations in the navigation' do
       within '.navbar' do
-        expect(page).to have_link I18n.t('admin.buttons.organizations'), href: admin_organizations_path
+        expect(page).
+          to have_link I18n.t('admin.buttons.organizations'), href: admin_organizations_path
       end
     end
 
@@ -125,15 +127,18 @@ feature 'Admin Home page' do
     end
 
     it 'does not display a link to add a new organization' do
-      expect(page).not_to have_link I18n.t('admin.buttons.add_organization'), new_admin_organization_path
+      expect(page).
+        not_to have_link I18n.t('admin.buttons.add_organization'), href: new_admin_organization_path
     end
 
     it 'does not display a link to add a new location' do
-      expect(page).to_not have_link I18n.t('admin.buttons.add_location'), new_admin_location_path
+      expect(page).
+        to_not have_link I18n.t('admin.buttons.add_location'), href: new_admin_location_path
     end
 
     it 'does not display a link to add a new program' do
-      expect(page).to_not have_link I18n.t('admin.buttons.add_program'), new_admin_program_path
+      expect(page).
+        to_not have_link I18n.t('admin.buttons.add_program'), href: new_admin_program_path
     end
 
     it 'does not display a link to download CSV' do
@@ -141,7 +146,8 @@ feature 'Admin Home page' do
       expect(page).
         to_not have_link(
           t('admin.buttons.generate_zip_file'),
-          admin_csv_all_path)
+          href: admin_csv_all_path
+        )
     end
   end
 
@@ -152,15 +158,18 @@ feature 'Admin Home page' do
     end
 
     it 'displays a link to add a new organization' do
-      expect(page).to have_link I18n.t('admin.buttons.add_organization'), new_admin_organization_path
+      expect(page).
+        to have_link I18n.t('admin.buttons.add_organization'), href: new_admin_organization_path
     end
 
     it 'does not display a link to add a new location' do
-      expect(page).to_not have_link I18n.t('admin.buttons.add_location'), new_admin_location_path
+      expect(page).
+        to_not have_link I18n.t('admin.buttons.add_location'), href: new_admin_location_path
     end
 
     it 'does not display a link to add a new program' do
-      expect(page).to_not have_link I18n.t('admin.buttons.add_program'), new_admin_program_path
+      expect(page).
+        to_not have_link I18n.t('admin.buttons.add_program'), href: new_admin_program_path
     end
   end
 
@@ -172,18 +181,18 @@ feature 'Admin Home page' do
     end
 
     it 'displays a link to add a new location' do
-      expect(page).to have_link I18n.t('admin.buttons.add_location'), new_admin_location_path
+      expect(page).to have_link I18n.t('admin.buttons.add_location'), href: new_admin_location_path
     end
 
     it 'displays a link to add a new program' do
-      expect(page).to have_link I18n.t('admin.buttons.add_program'), new_admin_program_path
+      expect(page).to have_link I18n.t('admin.buttons.add_program'), href: new_admin_program_path
     end
 
     it 'displays link to generate zip file' do
       expect(page).to have_content 'CSV Downloads'
 
       expect(page).
-        to have_link(t('admin.buttons.generate_zip_file'), admin_csv_all_path)
+        to have_link(t('admin.buttons.generate_zip_file'), href: admin_csv_all_path)
     end
 
     it 'displays a notice while the zip is being generated' do
