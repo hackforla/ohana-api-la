@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '2.3.3'
 gem 'rails', '~> 4.2'
 
 gem 'pg'
@@ -34,7 +34,7 @@ gem 'kaminari'
 gem 'active_model_serializers', '~> 0.8.0'
 
 # Authentication
-gem 'devise', '~> 3.4'
+gem 'devise', '~> 4.1'
 
 # Authorization
 gem 'pundit'
@@ -80,6 +80,7 @@ group :test do
   gem 'coveralls', require: false
   gem 'rubocop'
   gem 'haml_lint'
+  gem 'test_after_commit'
   gem 'webmock'
 end
 
@@ -96,4 +97,8 @@ group :development do
   gem 'derailed'
   gem 'rack-mini-profiler'
   gem 'flamegraph'
+  gem 'stackprof'
+
+  gem 'bummr'
+  gem 'reek'
 end
